@@ -12,9 +12,11 @@ class Aircraft {
   position:PositionObject;
   callsign:string = short.generate().substring(0,4).toUpperCase();
   heading:number = getRandomInt(0,360);
+  radiansHeading:number = this.heading * Math.PI / 180;
 
   constructor(position:PositionObject,heading?:number) {
-    this.engine = new Engine(2,2);
+    const speed = getRandomInt(2,10);
+    this.engine = new Engine(speed,speed);
     this.position = position;
 
     if(heading) {
@@ -28,10 +30,9 @@ class Aircraft {
     /**
      * Update aircraft position based on heading and speed
      */
-    const headingInRadians = this.heading * Math.PI / 180;
     const speed = this.engine.speed;
-    const vx = Math.cos(headingInRadians)*speed/30;
-    const vy = Math.sin(headingInRadians)*speed/30;
+    const vx = Math.cos(this.radiansHeading)*speed/30;
+    const vy = Math.sin(this.radiansHeading)*speed/30;
 
     this.position.x += vx;
     this.position.y += vy;

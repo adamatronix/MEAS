@@ -41,6 +41,14 @@ class MEAS {
           const x = Math.round(aircraft.position.x * 100) / 100;
           const y = Math.round(aircraft.position.y * 100) / 100;
           p5.text(`${x},${y}`, aircraft.position.x + 10, aircraft.position.y + 10);
+
+          const speed = Math.round(aircraft.engine.speed * 100) / 100;
+          p5.text(`${speed}nm`, aircraft.position.x + 10, aircraft.position.y + 30);
+
+          const x2 = x + Math.cos(aircraft.radiansHeading) * 20;
+          const y2 = y + Math.sin(aircraft.radiansHeading) * 20;
+
+          p5.line(x+1,y+1,x2+1,y2+1);
         });
       }
     }
