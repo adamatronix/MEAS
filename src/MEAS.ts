@@ -9,7 +9,7 @@ class MEAS {
 
   update = () => {
     this.plane.update();
-    console.log(this.plane.position);
+    console.log(`${this.plane.callsign} (${this.plane.position.x},${this.plane.position.y})`);
     requestAnimationFrame(this.update);
   }
 

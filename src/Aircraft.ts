@@ -1,4 +1,5 @@
 import { getRandomInt } from "./utils/getRandomInt";
+import short from 'short-uuid';
 import Engine from "./Engine";
 
 interface PositionObject {
@@ -9,6 +10,7 @@ interface PositionObject {
 class Aircraft {
   engine:Engine;
   position:PositionObject;
+  callsign:string = short.generate().substring(0,4).toUpperCase();
   heading:number = getRandomInt(0,360);
 
   constructor(position:PositionObject,heading?:number) {
