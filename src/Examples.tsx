@@ -7,7 +7,7 @@ const Example = () => {
   const containerEl = useRef();
 
   useEffect(() => {
-    new MEAS();
+    new MEAS(containerEl.current);
   }, []);
 
   return (

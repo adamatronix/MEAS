@@ -1,16 +1,42 @@
+import * as P5 from 'p5';
 import Aircraft from "./Aircraft";
-class MEAS {
-  plane:Aircraft;
 
-  constructor() {
-    this.plane = new Aircraft({x: 200, y: 200});
-    this.update();
+class MEAS {
+  container:HTMLDivElement;
+  allAircraft:any = Array();
+
+  constructor(container:HTMLDivElement) {
+    this.container = container;
+    new P5(this.sketch);
   }
 
-  update = () => {
-    this.plane.update();
-    console.log(`${this.plane.callsign} (${this.plane.position.x},${this.plane.position.y})`);
-    requestAnimationFrame(this.update);
+  sketch = (p5: P5) => {
+    const self = this;
+    
+    p5.setup = () => {
+      const canvas = p5.createCanvas(this.container.offsetWidth, this.container.offsetHeight);
+      canvas.parent(this.container);
+      canvas.style('position', 'absolute');
+      canvas.style('left', 0);
+      canvas.style('top', 0);
+      canvas.style('z-index', 1);
+      p5.frameRate(30);
+    }
+
+    p5.mousePressed = function () {
+      const aircraft = new Aircraft({x: p5.mouseX, y: p5.mouseY});
+      self.allAircraft.push(aircraft);
+    }
+
+    p5.draw = () => {
+      if(this.allAircraft.length > 0) {
+        this.allAircraft.forEach((aircraft:Aircraft) => {
+          aircraft.update();
+          p5.rect(aircraft.position.x, aircraft.position.y, 10, 10)
+        });
+      }
+    }
+
   }
 
 }
