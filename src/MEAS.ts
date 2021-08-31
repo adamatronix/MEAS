@@ -29,10 +29,18 @@ class MEAS {
     }
 
     p5.draw = () => {
+      p5.clear();
       if(this.allAircraft.length > 0) {
         this.allAircraft.forEach((aircraft:Aircraft) => {
           aircraft.update();
-          p5.rect(aircraft.position.x, aircraft.position.y, 10, 10)
+          p5.fill(0);
+          p5.rect(aircraft.position.x, aircraft.position.y, 2, 2)
+          p5.textFont('monospace');
+          p5.textSize(12);
+          p5.text(aircraft.callsign, aircraft.position.x + 10, aircraft.position.y - 10);
+          const x = Math.round(aircraft.position.x * 100) / 100;
+          const y = Math.round(aircraft.position.y * 100) / 100;
+          p5.text(`${x},${y}`, aircraft.position.x + 10, aircraft.position.y + 10);
         });
       }
     }
