@@ -1,12 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { render } from 'react-dom';
+import MEAS from './MEAS';
 
 const Example = () => {
 
   const containerEl = useRef();
 
   useEffect(() => {
-
+    new MEAS();
   }, []);
 
   return (

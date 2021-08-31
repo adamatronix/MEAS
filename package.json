@@ -35,5 +35,9 @@
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2",
     "webpack-obj-loader": "^1.0.4"
+  },
+  "dependencies": {
+    "randomstring": "^1.2.1",
+    "short-uuid": "^4.2.0"
   }
 }
