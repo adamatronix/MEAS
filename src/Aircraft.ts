@@ -1,6 +1,6 @@
 import { getRandomInt } from "./utils/getRandomInt";
 import short from 'short-uuid';
-import { intersect } from './utils/intersect';
+import TCAS from "./TCAS";
 import Engine from "./Engine";
 
 interface PositionObject {
@@ -16,6 +16,7 @@ interface FlightPathObject {
 }
 
 class Aircraft {
+  tcas:TCAS;
   engine:Engine;
   position:PositionObject;
   callsign:string = short.generate().substring(0,4).toUpperCase();
@@ -27,6 +28,7 @@ class Aircraft {
   constructor(position:PositionObject, airTraffic:any, heading?:number) {
     const speed = getRandomInt(2,10);
     this.airTraffic = airTraffic;
+    this.tcas = new TCAS(this,airTraffic);
     this.engine = new Engine(speed,speed);
     this.position = position;
 
@@ -38,7 +40,7 @@ class Aircraft {
   update = () => {
     this.engine.update();
     this.calcFlightPath();
-    this.checkFlightPathsInAirSpace();
+    this.tcas.scan();
 
     /**
      * Update aircraft position based on heading and speed
@@ -49,30 +51,6 @@ class Aircraft {
 
     this.position.x += vx;
     this.position.y += vy;
-
-  }
-
-  checkFlightPathsInAirSpace = () => {
-    this.airTraffic.forEach((aircraft:Aircraft) => {
-      const callsign = aircraft.callsign;
-      if(callsign !== this.callsign && aircraft.flightPath) {
-        const conflict = intersect( 
-          this.flightPath.x1,
-          this.flightPath.y1,
-          this.flightPath.x2,
-          this.flightPath.y2, 
-          aircraft.flightPath.x1, 
-          aircraft.flightPath.y1, 
-          aircraft.flightPath.x2, 
-          aircraft.flightPath.y2
-        );
-
-        if(conflict) {
-          console.log(`${this.callsign} is on the flight path of ${callsign}`);
-        }
-        
-      }
-    })
 
   }
 
