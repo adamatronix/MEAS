@@ -1,4 +1,5 @@
 import { intersect } from './utils/intersect';
+import { distanceOfLine } from './utils/distanceOfLine';
 import Aircraft from './Aircraft';
 
 class TCAS {
@@ -26,7 +27,13 @@ class TCAS {
         );
 
         if(conflict) {
-          console.log(`${this.origin.callsign} is on the flight path of ${callsign}`);
+          // On a similar flight path and so we must determine if they are on a collision course.
+          const originToCollision = distanceOfLine(this.origin.position.x,this.origin.position.y,conflict.x,conflict.y);
+          const otherCollision = distanceOfLine(aircraft.position.x,aircraft.position.y,conflict.x,conflict.y);
+
+          if(originToCollision < 40 && otherCollision < 40) {
+            console.log('IMMINENT COLLISION');
+          }
         }
         
       }
