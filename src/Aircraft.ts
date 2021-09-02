@@ -42,7 +42,6 @@ class Aircraft {
     this.engine.update();
     this.calcFlightPath();
     this.tcas.scan(this.collisionManoeuver);
-
     /**
      * Update aircraft position based on heading and speed
      */

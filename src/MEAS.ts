@@ -64,6 +64,12 @@ class MEAS {
           const y2 = y + Math.sin(aircraft.radiansHeading) * 50;
 
           p5.line(x+1,y+1,x2+1,y2+1);
+
+
+          Object.keys(aircraft.tcas.closeProximityCraft).forEach((callsign:string) => {
+            const otherAircraft = aircraft.tcas.closeProximityCraft[callsign];
+            p5.line(aircraft.position.x,aircraft.position.y,otherAircraft.position.x,otherAircraft.position.y);
+          })
         });
       }
     }
