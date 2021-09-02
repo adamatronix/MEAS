@@ -71,7 +71,7 @@ class MEAS {
           const x2 = x + Math.cos(aircraft.fans.radiansHeading) * 50;
           const y2 = y + Math.sin(aircraft.fans.radiansHeading) * 50;
 
-          p5.line(x+1,y+1,x2+1,y2+1);
+          //p5.line(x+1,y+1,x2+1,y2+1);
 
           
           let ctx = <CanvasRenderingContext2D> p5.drawingContext;
