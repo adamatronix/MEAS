@@ -10,6 +10,7 @@ interface PositionObject {
 class TCAS {
   airTraffic:any;
   origin:Aircraft;
+  closeProximityCraft:any = {};
 
   constructor(origin:Aircraft, airTraffic:any) {
     this.airTraffic = airTraffic;
@@ -30,6 +31,13 @@ class TCAS {
           aircraft.flightPath.x2, 
           aircraft.flightPath.y2
         );
+
+        const originToOther = distanceOfLine(this.origin.position.x,this.origin.position.y,aircraft.position.x,aircraft.position.y);
+        if(originToOther < 300 && !this.closeProximityCraft[aircraft.callsign]) {
+          this.closeProximityCraft[aircraft.callsign] = aircraft;
+        } else if(originToOther >= 300 && this.closeProximityCraft[aircraft.callsign]) {
+          delete this.closeProximityCraft[aircraft.callsign];
+        }
 
         if(conflict) {
           // On a similar flight path and so we must determine if they are on a collision course.
