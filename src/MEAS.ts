@@ -14,6 +14,7 @@ class MEAS {
     const self = this;
     
     p5.setup = () => {
+      p5.pixelDensity(0.5);
       const canvas = p5.createCanvas(this.container.offsetWidth, this.container.offsetHeight);
       canvas.parent(this.container);
       canvas.style('position', 'absolute');
