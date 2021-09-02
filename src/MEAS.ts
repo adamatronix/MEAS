@@ -14,14 +14,15 @@ class MEAS {
     const self = this;
     
     p5.setup = () => {
-      p5.pixelDensity(2);
+      p5.pixelDensity(0.8);
       const canvas = p5.createCanvas(this.container.offsetWidth, this.container.offsetHeight);
       canvas.parent(this.container);
       canvas.style('position', 'absolute');
       canvas.style('left', 0);
       canvas.style('top', 0);
       canvas.style('z-index', 1);
-      p5.frameRate(30);
+      p5.frameRate(10);
+      p5.background('#2a1ef0');
     }
 
     p5.mousePressed = function () {
@@ -31,6 +32,7 @@ class MEAS {
 
     p5.draw = () => {
       p5.clear();
+      p5.background('#2a1ef0');
       if(this.allAircraft.length > 0) {
         this.allAircraft.forEach((aircraft:Aircraft) => {
           aircraft.update();
@@ -47,18 +49,24 @@ class MEAS {
             }
           }
           p5.strokeWeight(2);
+          p5.fill('rgba(255,255,255, 0)');
+          p5.stroke(255, 255, 255);
           icons[aircraft.icon](20);
 
+          p5.fill('rgba(255,255,255, 1)');
           p5.strokeWeight(1);
           p5.textFont('monospace');
-          p5.textSize(12);
-          p5.text(aircraft.callsign, aircraft.position.x + 10, aircraft.position.y - 10);
-          const x = Math.round(aircraft.position.x * 100) / 100;
-          const y = Math.round(aircraft.position.y * 100) / 100;
-          p5.text(`${x},${y}`, aircraft.position.x + 10, aircraft.position.y + 10);
+          p5.textSize(16);
+          p5.textStyle(p5.BOLD);
+          p5.textAlign(p5.CENTER);
+          //p5.text(aircraft.callsign, aircraft.position.x + 10, aircraft.position.y - 10);
+          const x = Math.trunc(aircraft.position.x);
+          const y = Math.trunc(aircraft.position.y);
+          p5.text(`${x} ${y}`, aircraft.position.x - 70, aircraft.position.y - 30, 150);
 
+          p5.textSize(12);
           const speed = Math.round(aircraft.engine.speed * 100) / 100;
-          p5.text(`${speed}nm`, aircraft.position.x + 10, aircraft.position.y + 30);
+          //p5.text(`${speed}nm`, aircraft.position.x + 10, aircraft.position.y + 30);
 
           const x2 = x + Math.cos(aircraft.radiansHeading) * 50;
           const y2 = y + Math.sin(aircraft.radiansHeading) * 50;

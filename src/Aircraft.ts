@@ -27,10 +27,10 @@ class Aircraft {
   flightPath: FlightPathObject;
 
   constructor(position:PositionObject, airTraffic:any, heading?:number) {
-    const speed = getRandomInt(2,10);
+    const speed = getRandomInt(5,30);
     this.airTraffic = airTraffic;
     this.tcas = new TCAS(this,airTraffic);
-    this.engine = new Engine(speed,speed);
+    this.engine = new Engine(1/10,speed,speed);
     this.position = position;
 
     if(heading) {

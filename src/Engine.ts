@@ -15,7 +15,9 @@ class Engine {
   speed:number;
   nm:number;
 
-  constructor(speed?:number,nm?:number) {
+  constructor(frameRate:number, speed?:number,nm?:number) {
+    this.frameRate = frameRate;
+    
     if(speed) {
       this.speed = speed;
     }
