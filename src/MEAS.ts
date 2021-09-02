@@ -22,7 +22,7 @@ class MEAS {
       canvas.style('top', 0);
       canvas.style('z-index', 1);
       p5.frameRate(10);
-      p5.background('#2a1ef0');
+      p5.background('rgba(255,255,255,0)');
     }
 
     p5.mousePressed = function () {
@@ -32,7 +32,6 @@ class MEAS {
 
     p5.draw = () => {
       p5.clear();
-      p5.background('#2a1ef0');
       if(this.allAircraft.length > 0) {
         this.allAircraft.forEach((aircraft:Aircraft) => {
           aircraft.update();
