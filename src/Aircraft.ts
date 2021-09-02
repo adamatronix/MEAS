@@ -40,7 +40,7 @@ class Aircraft {
   update = () => {
     this.engine.update();
     this.calcFlightPath();
-    this.tcas.scan();
+    this.tcas.scan(this.collisionManoeuver);
 
     /**
      * Update aircraft position based on heading and speed
@@ -52,6 +52,12 @@ class Aircraft {
     this.position.x += vx;
     this.position.y += vy;
 
+  }
+
+  collisionManoeuver = (conflictPoint:PositionObject, direction:string) => {
+    this.heading = direction === 'left' ? this.heading - .25 : this.heading + .25;
+    this.radiansHeading = this.heading * Math.PI / 180;
+    console.log(`${this.callsign} chaning heading to ${this.heading}`)
   }
 
   calcFlightPath = () => {
