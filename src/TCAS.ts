@@ -33,9 +33,9 @@ class TCAS {
         );
 
         const originToOther = distanceOfLine(this.origin.position.x,this.origin.position.y,aircraft.position.x,aircraft.position.y);
-        if(originToOther < 300 && !this.closeProximityCraft[aircraft.callsign]) {
+        if(originToOther < 200 && !this.closeProximityCraft[aircraft.callsign]) {
           this.closeProximityCraft[aircraft.callsign] = aircraft;
-        } else if(originToOther >= 300 && this.closeProximityCraft[aircraft.callsign]) {
+        } else if(originToOther >= 200 && this.closeProximityCraft[aircraft.callsign]) {
           delete this.closeProximityCraft[aircraft.callsign];
         }
 
