@@ -20,16 +20,16 @@ class TCAS {
   scan = (collisionEvent?: (conflictPoint: PositionObject, direction:string) => void) => {
     this.airTraffic.forEach((aircraft:Aircraft) => {
       const callsign = aircraft.callsign;
-      if(callsign !== this.origin.callsign && aircraft.flightPath && this.origin.flightPath) {
+      if(callsign !== this.origin.callsign && aircraft.fans.flightPath && this.origin.fans.flightPath) {
         const conflict = intersect( 
-          this.origin.flightPath.x1,
-          this.origin.flightPath.y1,
-          this.origin.flightPath.x2,
-          this.origin.flightPath.y2, 
-          aircraft.flightPath.x1, 
-          aircraft.flightPath.y1, 
-          aircraft.flightPath.x2, 
-          aircraft.flightPath.y2
+          this.origin.fans.flightPath.x1,
+          this.origin.fans.flightPath.y1,
+          this.origin.fans.flightPath.x2,
+          this.origin.fans.flightPath.y2, 
+          aircraft.fans.flightPath.x1, 
+          aircraft.fans.flightPath.y1, 
+          aircraft.fans.flightPath.x2, 
+          aircraft.fans.flightPath.y2
         );
 
         const originToOther = distanceOfLine(this.origin.position.x,this.origin.position.y,aircraft.position.x,aircraft.position.y);

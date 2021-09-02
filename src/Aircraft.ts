@@ -1,6 +1,7 @@
 import { getRandomInt } from "./utils/getRandomInt";
 import short from 'short-uuid';
 import TCAS from "./TCAS";
+import FANS from "./FANS";
 import Engine from "./Engine";
 
 interface PositionObject {
@@ -8,15 +9,9 @@ interface PositionObject {
   y:number
 }
 
-interface FlightPathObject {
-  x1:number,
-  y1:number,
-  x2:number,
-  y2:number
-}
-
 class Aircraft {
   tcas:TCAS;
+  fans:FANS;
   icon:number = getRandomInt(0,3);
   engine:Engine;
   position:PositionObject;
@@ -24,12 +19,12 @@ class Aircraft {
   heading:number = getRandomInt(0,360);
   radiansHeading:number = this.heading * Math.PI / 180;
   airTraffic:any;
-  flightPath: FlightPathObject;
 
   constructor(position:PositionObject, airTraffic:any, heading?:number) {
     const speed = getRandomInt(5,30);
     this.airTraffic = airTraffic;
     this.tcas = new TCAS(this,airTraffic);
+    this.fans = new FANS(this);
     this.engine = new Engine(1/10,speed,speed);
     this.position = position;
 
@@ -39,8 +34,8 @@ class Aircraft {
   }
 
   update = () => {
+    this.fans.update();
     this.engine.update();
-    this.calcFlightPath();
     this.tcas.scan(this.collisionManoeuver);
     /**
      * Update aircraft position based on heading and speed
@@ -60,20 +55,6 @@ class Aircraft {
     console.log(`${this.callsign} chaning heading to ${this.heading}`)
   }
 
-  calcFlightPath = () => {
-    // Get the endpoints based on the current flight position, heading, and distance we want to start calculating.
-    const x1 = this.position.x;
-    const y1 = this.position.y;
-    const x2 = x1 + Math.cos(this.radiansHeading) * 400;
-    const y2 = y1 + Math.sin(this.radiansHeading) * 400;
-
-    this.flightPath = {
-      x1: x1,
-      y1: y1,
-      x2: x2,
-      y2: y2
-    }
-  }
 }
 
 export default Aircraft;
