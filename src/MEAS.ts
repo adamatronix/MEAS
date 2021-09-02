@@ -24,7 +24,7 @@ class MEAS {
     }
 
     p5.mousePressed = function () {
-      const aircraft = new Aircraft({x: p5.mouseX, y: p5.mouseY});
+      const aircraft = new Aircraft({x: p5.mouseX, y: p5.mouseY}, self.allAircraft);
       self.allAircraft.push(aircraft);
     }
 
