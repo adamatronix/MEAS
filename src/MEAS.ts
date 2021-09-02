@@ -14,6 +14,7 @@ class MEAS {
     const self = this;
     
     p5.setup = () => {
+      p5.pixelDensity(2);
       const canvas = p5.createCanvas(this.container.offsetWidth, this.container.offsetHeight);
       canvas.parent(this.container);
       canvas.style('position', 'absolute');
@@ -33,8 +34,22 @@ class MEAS {
       if(this.allAircraft.length > 0) {
         this.allAircraft.forEach((aircraft:Aircraft) => {
           aircraft.update();
-          p5.fill(0);
-          p5.rect(aircraft.position.x, aircraft.position.y, 2, 2)
+          //Draw Icon
+          const icons:any = {
+            0: (size:number) => {
+              return p5.rect(aircraft.position.x - size/2, aircraft.position.y - size/2, size, size);
+            },
+            1: (size:number) => {
+              return p5.circle(aircraft.position.x, aircraft.position.y, size+4);
+            },
+            2: (size:number) => {
+              return p5.triangle(aircraft.position.x - (size/2) - 4, aircraft.position.y + size/2, aircraft.position.x, aircraft.position.y - size/2, aircraft.position.x+(size/2)+4, aircraft.position.y + size/2);
+            }
+          }
+          p5.strokeWeight(2);
+          icons[aircraft.icon](20);
+
+          p5.strokeWeight(1);
           p5.textFont('monospace');
           p5.textSize(12);
           p5.text(aircraft.callsign, aircraft.position.x + 10, aircraft.position.y - 10);
@@ -45,8 +60,8 @@ class MEAS {
           const speed = Math.round(aircraft.engine.speed * 100) / 100;
           p5.text(`${speed}nm`, aircraft.position.x + 10, aircraft.position.y + 30);
 
-          const x2 = x + Math.cos(aircraft.radiansHeading) * 20;
-          const y2 = y + Math.sin(aircraft.radiansHeading) * 20;
+          const x2 = x + Math.cos(aircraft.radiansHeading) * 50;
+          const y2 = y + Math.sin(aircraft.radiansHeading) * 50;
 
           p5.line(x+1,y+1,x2+1,y2+1);
         });
