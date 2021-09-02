@@ -68,10 +68,10 @@ class MEAS {
           const speed = Math.round(aircraft.engine.speed * 100) / 100;
           //p5.text(`${speed}nm`, aircraft.position.x + 10, aircraft.position.y + 30);
 
-          const x2 = x + Math.cos(aircraft.radiansHeading) * 50;
-          const y2 = y + Math.sin(aircraft.radiansHeading) * 50;
+          const x2 = x + Math.cos(aircraft.fans.radiansHeading) * 50;
+          const y2 = y + Math.sin(aircraft.fans.radiansHeading) * 50;
 
-          p5.line(x+1,y+1,x2+1,y2+1);
+          //p5.line(x+1,y+1,x2+1,y2+1);
 
           
           let ctx = <CanvasRenderingContext2D> p5.drawingContext;
