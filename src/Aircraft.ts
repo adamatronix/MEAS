@@ -17,6 +17,7 @@ interface FlightPathObject {
 
 class Aircraft {
   tcas:TCAS;
+  icon:number = getRandomInt(0,3);
   engine:Engine;
   position:PositionObject;
   callsign:string = short.generate().substring(0,4).toUpperCase();
