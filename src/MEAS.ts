@@ -73,11 +73,14 @@ class MEAS {
 
           p5.line(x+1,y+1,x2+1,y2+1);
 
-
+          
+          let ctx = <CanvasRenderingContext2D> p5.drawingContext;
+          ctx.setLineDash([5, 15]);
           Object.keys(aircraft.tcas.closeProximityCraft).forEach((callsign:string) => {
             const otherAircraft = aircraft.tcas.closeProximityCraft[callsign];
             p5.line(aircraft.position.x,aircraft.position.y,otherAircraft.position.x,otherAircraft.position.y);
           })
+          ctx.setLineDash([]);
         });
       }
     }
