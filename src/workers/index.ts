@@ -1,6 +1,7 @@
 import { expose } from 'comlink';
 import { intersect } from '../utils/intersect';
 import { distanceOfLine } from '../utils/distanceOfLine';
+import { bezierCurve } from '../utils/bezierCurve';
 
 const TCASScan = (data:any) => {
 
@@ -70,11 +71,28 @@ const TCASScan = (data:any) => {
   };
 }
 
+const CalculateBezierDistance = (x1:number, y1:number, x2:number, y2:number, x3:number, y3:number) => {
+  let t = 0;
+  let curveDistance = 0;
+  let cachedPos; 
+  while(t < 1) {
+    const results = bezierCurve(t,x1,y1,x2,y2,x3,y3);
+    if(cachedPos) {
+      curveDistance += distanceOfLine(cachedPos.x,cachedPos.y,results.x,results.y);
+    }
+    cachedPos = results;
+    t += 0.001;
+  }
+
+  return curveDistance;
+}
+
 
 
 const exports = {
     intersect,
-    TCASScan
+    TCASScan,
+    CalculateBezierDistance
 };
 
 expose(exports);
