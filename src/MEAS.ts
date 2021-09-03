@@ -56,11 +56,19 @@ class MEAS {
 
       if(this.allMissiles.length > 0) {
         this.allMissiles.forEach((missile:AAM) => {
-
-          p5.strokeWeight(1);
+          missile.update(p5);
+          p5.strokeWeight(2);
           p5.fill('rgba(255,255,255, 0)');
           p5.stroke(255, 255, 255);
           icons[missile.icon](20,missile);
+          
+          p5.fill('rgba(255,255,255, 1)');
+          p5.strokeWeight(1);
+          p5.textFont('monospace');
+          p5.textSize(16);
+          p5.textStyle(p5.NORMAL);
+          p5.textAlign(p5.CENTER);
+          p5.text(missile.callsign, missile.position.x + 10, missile.position.y - 16);
 
         });
       }
