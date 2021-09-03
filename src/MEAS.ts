@@ -1,9 +1,11 @@
 import * as P5 from 'p5';
 import Aircraft from "./Aircraft";
+import AAM from './AAM';
 
 class MEAS {
   container:HTMLDivElement;
   allAircraft:any = Array();
+  allMissiles:any = Array();
 
   constructor(container:HTMLDivElement) {
     this.container = container;
@@ -23,6 +25,9 @@ class MEAS {
       canvas.style('z-index', 1);
       p5.frameRate(10);
       p5.background('rgba(255,255,255,0)');
+
+      const missile = new AAM({x: 500, y: 500}, self.allAircraft);
+      self.allMissiles.push(missile);
     }
 
     p5.mousePressed = function () {
@@ -32,25 +37,42 @@ class MEAS {
 
     p5.draw = () => {
       p5.clear();
+      //Draw Icon
+      const icons:any = {
+        0: (size:number, aircraft:Aircraft) => {
+          return p5.rect(aircraft.position.x - size/2, aircraft.position.y - size/2, size, size);
+        },
+        1: (size:number, aircraft:Aircraft) => {
+          return p5.circle(aircraft.position.x, aircraft.position.y, size+4);
+        },
+        2: (size:number, aircraft:Aircraft) => {
+          return p5.triangle(aircraft.position.x - (size/2) - 4, aircraft.position.y + size/2, aircraft.position.x, aircraft.position.y - size/2, aircraft.position.x+(size/2)+4, aircraft.position.y + size/2);
+        },
+        3: (size:number, aircraft:Aircraft) => {
+          p5.line(aircraft.position.x,aircraft.position.y - size/2,aircraft.position.x,aircraft.position.y + size/2);
+          p5.line(aircraft.position.x - size/2, aircraft.position.y,aircraft.position.x + size/2,aircraft.position.y);
+        }
+      }
+
+      if(this.allMissiles.length > 0) {
+        this.allMissiles.forEach((missile:AAM) => {
+
+          p5.strokeWeight(1);
+          p5.fill('rgba(255,255,255, 0)');
+          p5.stroke(255, 255, 255);
+          icons[missile.icon](20,missile);
+
+        });
+      }
+
       if(this.allAircraft.length > 0) {
         this.allAircraft.forEach((aircraft:Aircraft) => {
           aircraft.update();
-          //Draw Icon
-          const icons:any = {
-            0: (size:number) => {
-              return p5.rect(aircraft.position.x - size/2, aircraft.position.y - size/2, size, size);
-            },
-            1: (size:number) => {
-              return p5.circle(aircraft.position.x, aircraft.position.y, size+4);
-            },
-            2: (size:number) => {
-              return p5.triangle(aircraft.position.x - (size/2) - 4, aircraft.position.y + size/2, aircraft.position.x, aircraft.position.y - size/2, aircraft.position.x+(size/2)+4, aircraft.position.y + size/2);
-            }
-          }
+          
           p5.strokeWeight(2);
           p5.fill('rgba(255,255,255, 0)');
           p5.stroke(255, 255, 255);
-          icons[aircraft.icon](20);
+          icons[aircraft.icon](20,aircraft);
 
           p5.fill('rgba(255,255,255, 1)');
           p5.strokeWeight(1);
