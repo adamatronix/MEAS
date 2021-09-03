@@ -2,6 +2,7 @@ import * as P5 from 'p5';
 import { wrap } from 'comlink';
 import { getRandomInt } from "./utils/getRandomInt";
 import { distanceOfLine } from './utils/distanceOfLine';
+import { bezierCurveAngle } from './utils/bezierCurveAngle';
 import short from 'short-uuid';
 import Engine from "./Engine";
 import { bezierCurve } from './utils/bezierCurve';
@@ -36,10 +37,23 @@ class AAM {
       let target = this.allAircraft[this.allAircraft.length-1];
       let t = 0;
 
-      const distance = this.workerApi.CalculateBezierDistance(this.position.x,this.position.y,500,0,target.position.x,target.position.y);
+      //const distance = this.workerApi.CalculateBezierDistance(this.position.x,this.position.y,500,0,target.position.x,target.position.y);
+      const distanceBetweenMissileAndTarget = distanceOfLine(this.position.x,this.position.y, target.position.x,target.position.y);
+      const points = bezierCurveAngle(t,this.position.x,this.position.y,(this.position.x+target.position.x)/2,200,target.position.x,target.position.y);
+
+      const x = this.position.x - target.position.x;
+      const y = this.position.y - target.position.y;
+      const angle = Math.atan2(x,y);
+      const degrees = angle * (180/Math.PI);
+
+
+      console.log(((degrees + 360) % 360));
+
+      
+      p5.line(points.p1.x,points.p1.y, points.p2.x, points.p2.y);
 
       while(t < 1) {
-        const results = bezierCurve(t,this.position.x,this.position.y,500,0,target.position.x,target.position.y);
+        const results = bezierCurve(t,this.position.x,this.position.y,(this.position.x+target.position.x)/2,200,target.position.x,target.position.y);
         p5.circle(results.x,results.y,0.5);
         t += 0.02;
       }
