@@ -2,7 +2,6 @@
 // Determine the intersection point of two line segments
 // Return FALSE if the lines don't intersect
 export const intersect = (x1:number, y1:number, x2:number, y2:number, x3:number, y3:number, x4:number, y4:number) => {
-
   // Check if none of the lines are of length 0
 	if ((x1 === x2 && y1 === y2) || (x3 === x4 && y3 === y4)) {
 		return false
