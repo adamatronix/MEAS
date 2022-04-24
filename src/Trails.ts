@@ -20,9 +20,9 @@ class Trails {
       const canvas = p5.createCanvas(this.container.offsetWidth, this.container.offsetHeight);
       canvas.parent(this.container);
       canvas.style('position', 'absolute');
-      canvas.style('left', 0);
-      canvas.style('top', 0);
-      canvas.style('z-index', 0);
+      canvas.style('left', '0px');
+      canvas.style('top', '0px');
+      canvas.style('z-index', '0');
       p5.frameRate(10);
     }
 

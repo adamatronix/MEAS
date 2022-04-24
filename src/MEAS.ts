@@ -18,9 +18,9 @@ class MEAS {
       const canvas = p5.createCanvas(this.container.offsetWidth, this.container.offsetHeight);
       canvas.parent(this.container);
       canvas.style('position', 'absolute');
-      canvas.style('left', 0);
-      canvas.style('top', 0);
-      canvas.style('z-index', 1);
+      canvas.style('left', '0px');
+      canvas.style('top', '0px');
+      canvas.style('z-index', '1');
       p5.frameRate(10);
       p5.background('rgba(255,255,255,0)');
     }
@@ -31,7 +31,7 @@ class MEAS {
     }
 
     p5.draw = () => {
-      p5.clear();
+      p5.clear(255,255,255,0);
       if(this.allAircraft.length > 0) {
         this.allAircraft.forEach((aircraft:Aircraft) => {
           aircraft.update();
