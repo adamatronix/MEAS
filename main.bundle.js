@@ -1,1 +1,1 @@
-(()=>{"use strict";new function(i,s){void 0===i&&(i=0),void 0===s&&(s=0),this.x=i,this.y=s,console.log(this.x+","+this.y)}(10,10)})();
+(()=>{"use strict";new function(t,i){void 0===t&&(t=0),void 0===i&&(i=0),this.x=t,this.y=i,console.log("".concat(this.x,",").concat(this.y))}(10,10)})();
