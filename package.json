@@ -37,10 +37,14 @@
     "webpack-obj-loader": "^1.0.4"
   },
   "dependencies": {
+    "@svgr/webpack": "^6.2.1",
+    "@types/styled-components": "^5.1.25",
     "comlink": "^4.3.1",
+    "file-loader": "^6.2.0",
     "randomstring": "^1.2.1",
     "sass": "^1.50.1",
     "short-uuid": "^4.2.0",
+    "styled-components": "^5.3.5",
     "webpack-dev-server": "^4.8.1",
     "worker-plugin": "^5.0.1"
   }

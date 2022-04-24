@@ -21,7 +21,7 @@ class MEAS {
       canvas.style('left', '0px');
       canvas.style('top', '0px');
       canvas.style('z-index', '1');
-      p5.frameRate(10);
+      p5.frameRate(60);
       p5.background('rgba(255,255,255,0)');
     }
 
